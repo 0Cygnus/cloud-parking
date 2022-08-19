@@ -24,11 +24,13 @@ public class ParkingControllerIT extends AbstractContainerBase{
 	@Test
 	void whenfindAllThenCheckResult() {
 		RestAssured.given()
-		.when()
-		.get("/parking")
-		.then()
-		.statusCode(HttpStatus.OK.value())
-		.body("License[0]", Matchers.equalTo("DMS-1111"));
+			.auth()
+			.basic("user", "Blu3g@rd")
+			.when()
+			.get("/parking")
+			.then()
+			.statusCode(HttpStatus.OK.value())
+			.body("License[0]", Matchers.equalTo("DMS-1111"));
 	}
 	
 	@Test
@@ -41,13 +43,15 @@ public class ParkingControllerIT extends AbstractContainerBase{
 		createDTO.setState("PR");
 		
 		RestAssured.given()
-		.when()
-		.contentType("") //APPLICATION_JSON_VALUE
-		.body(createDTO)
-		.post("/parking")
-		.then()
-		.statusCode(HttpStatus.CREATED.value())
-		.body("License", Matchers.equalTo("555-ASDA"));
+			.auth()
+			.basic("user", "Blu3g@rd")	
+			.when()
+			.contentType("") //APPLICATION_JSON_VALUE
+			.body(createDTO)
+			.post("/parking")
+			.then()
+			.statusCode(HttpStatus.CREATED.value())
+			.body("License", Matchers.equalTo("555-ASDA"));
 	}
 	
 }

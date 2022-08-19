@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -17,11 +16,12 @@ import springfox.documentation.service.BasicAuth;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
 @Component
+@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
@@ -31,15 +31,15 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("one.digitalinnovation.parking"))
                 .build()
                 .apiInfo(metaData())
-                //.securityContexts(Arrays.asList(actuatorSecurityContext()))
+                .securityContexts(Arrays.asList(actuatorSecurityContext()))
                 .securitySchemes(Arrays.asList(basicAuthScheme()));
     }
 
-   /* private SecurityContext actuatorSecurityContext() {
+    private SecurityContext actuatorSecurityContext() {
         return SecurityContext.builder()
                 .securityReferences(Arrays.asList(basicAuthReference()))
                 .build();
-    }*/
+    }
 
     private SecurityScheme basicAuthScheme() {
         return new BasicAuth("basicAuth");
