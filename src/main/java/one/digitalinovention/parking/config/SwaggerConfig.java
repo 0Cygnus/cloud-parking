@@ -20,9 +20,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/*
+
 @Component
-@EnableSwagger2
 public class SwaggerConfig {
 
     @Bean
@@ -32,15 +31,15 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("one.digitalinnovation.parking"))
                 .build()
                 .apiInfo(metaData())
-                .securityContexts(Arrays.asList(actuatorSecurityContext()))
+                //.securityContexts(Arrays.asList(actuatorSecurityContext()))
                 .securitySchemes(Arrays.asList(basicAuthScheme()));
     }
 
-    private SecurityContext actuatorSecurityContext() {
+   /* private SecurityContext actuatorSecurityContext() {
         return SecurityContext.builder()
                 .securityReferences(Arrays.asList(basicAuthReference()))
                 .build();
-    }
+    }*/
 
     private SecurityScheme basicAuthScheme() {
         return new BasicAuth("basicAuth");
@@ -71,4 +70,4 @@ public class SwaggerConfig {
     }
 
 
-}*/
+}
